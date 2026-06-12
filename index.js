@@ -1,5 +1,4 @@
-const spellListEl = document.querySelector('.spell-list');
-
+const spellListEl = document.querySelector('.spell-list')
 const slider = document.querySelector(".range-slider");
 const progress = slider.querySelector(".progress");
 const minLevelInput = slider.querySelector(".min-level")
@@ -65,10 +64,52 @@ updateProgress()
 
 
 
-async function main() {
-    const spells = await fetch("https://www.dnd5eapi.co/api/2014/spells?level=")
+async function allSpells() {
+    const spells = await fetch(`https://www.dnd5eapi.co/api/2014/spells`)
     const spellsData = await spells.json();
-    console.log(spellsData)
+    const {results, ...details} = spellsData;
+    spellListEl.innerHTML = results.map((spells) => spellHTML(spells)).join("");
 }
-main()
+allSpells()
 
+
+function spellHTML(spells) {
+    return `<div class="spell-card">
+              <div class="spell-card__container">
+                <h3>Spell Name: ${spells.index}</h3>
+                <p><b>Level: ${spells.level}</b></p>
+                <p><button id="${spells.index}">See Reverse for Description</button></p>
+              </div>
+            </div>`
+}
+
+function spellRange(){
+    const min = parseInt(minInput.value);
+    const max = parseInt(maxInput.value);
+    const start = Math.min(min, max);
+    const end = Math.max(min, max);
+    
+    return Array.from({length: end - start + 1}, (_, i) => start + i);
+}
+console.log(spellRange())
+
+//const sliderHandles = [
+//    document.getElementById('min-input'),
+//    document.getElementById('max-input')
+//];
+//sliderHandles.forEach(handle => {
+//    handle.addEventListener('input', (e) => {
+//        const [minVal, maxVal] = sliderHandles.map(h => parseFloat(h.value))
+//        console.log(`${minVal} - ${maxVal}`)
+//    })
+//})
+
+//const button = document.getElementById('${spells.index}');
+//const spellCardInfo = document.getElementById('spell-card__info--container');
+
+//async function spellInfo() {
+//    const result = await fetch(`https://www.dnd5eapi.co/api/2014/spells/${spells.index}`)
+//    const info = await result.json();
+//    console.log(result)
+//}
+//button.addEventListener('click', spellInfo)
