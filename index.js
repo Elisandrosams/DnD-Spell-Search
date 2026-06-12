@@ -52,6 +52,8 @@ minInput.addEventListener('input', () => {
         maxInput.value = minInput.value;
     }
     updateProgress()
+    spellRange()
+    allSpells()
 })
 
 maxInput.addEventListener('input', () => {
@@ -59,13 +61,15 @@ maxInput.addEventListener('input', () => {
         minInput.value = maxInput.value;
     }
     updateProgress()
+    spellRange()
+    allSpells()
 })
 updateProgress()
 
 
 
 async function allSpells() {
-    const spells = await fetch(`https://www.dnd5eapi.co/api/2014/spells`)
+    const spells = await fetch(`https://www.dnd5eapi.co/api/2014/spells?level=${spellRange()}`)
     const spellsData = await spells.json();
     const {results, ...details} = spellsData;
     spellListEl.innerHTML = results.map((spells) => spellHTML(spells)).join("");
@@ -91,18 +95,6 @@ function spellRange(){
     
     return Array.from({length: end - start + 1}, (_, i) => start + i);
 }
-console.log(spellRange())
-
-//const sliderHandles = [
-//    document.getElementById('min-input'),
-//    document.getElementById('max-input')
-//];
-//sliderHandles.forEach(handle => {
-//    handle.addEventListener('input', (e) => {
-//        const [minVal, maxVal] = sliderHandles.map(h => parseFloat(h.value))
-//        console.log(`${minVal} - ${maxVal}`)
-//    })
-//})
 
 //const button = document.getElementById('${spells.index}');
 //const spellCardInfo = document.getElementById('spell-card__info--container');
