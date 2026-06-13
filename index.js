@@ -1,4 +1,5 @@
 const spellListEl = document.querySelector('.spell-list')
+const spellInfoEl = document.querySelector('.spell-card__info--container')
 const slider = document.querySelector(".range-slider");
 const progress = slider.querySelector(".progress");
 const minLevelInput = slider.querySelector(".min-level")
@@ -80,9 +81,9 @@ allSpells()
 function spellHTML(spells) {
     return `<div class="spell-card">
               <div class="spell-card__container">
-                <h3>Spell Name: ${spells.index}</h3>
+                <h3>Spell: ${spells.index}</h3>
                 <p><b>Level: ${spells.level}</b></p>
-                <p><button id="${spells.index}">See Reverse for Description</button></p>
+                <p><button class= "api-btn" id="${spells.index}">See Reverse for Description</button></p>
               </div>
             </div>`
 }
@@ -96,12 +97,25 @@ function spellRange(){
     return Array.from({length: end - start + 1}, (_, i) => start + i);
 }
 
-//const button = document.getElementById('${spells.index}');
-//const spellCardInfo = document.getElementById('spell-card__info--container');
+document.body.addEventListener('click', async (event) => {
+    const button = event.target.closest(".api-btn");
+    if (event.target.classList.contains('api-btn')) {
+        const buttonId = button.id;
+        const result = await fetch(`https://www.dnd5eapi.co/api/2014/spells/${buttonId}`)
+        const info = await result.json();
+        console.log(info)
+        document.querySelector(".spell-card__info--container").innerHTML = `
+  <h2>${info.name}</h2>
+  <p><b>Level: ${info.level}</b></p>
+  <p><b>Casting Time:</b> ${info.casting_time}</p>
+  <p><b>Range: </b>${info.range}</p>
+  <p><b>Description: </b>${info.desc[0]}</p>
+`;
+    }
+    
+});
 
-//async function spellInfo() {
-//    const result = await fetch(`https://www.dnd5eapi.co/api/2014/spells/${spells.index}`)
-//    const info = await result.json();
-//    console.log(result)
-//}
-//button.addEventListener('click', spellInfo)
+
+
+       
+    
