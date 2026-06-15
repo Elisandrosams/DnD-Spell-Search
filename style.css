@@ -96,12 +96,33 @@ button {
     background-color: green;
 }
 
+/* spell sorting */
+
+.sorting {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#filter {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 450px;
+}
+
 /* spell list */
 
+.spell-list__row {
+    display: flex;
+    justify-content: center;
+}
 .spell-list {
   width: auto;
-  display: flex;
-  flex-wrap: wrap;
+  max-width: 1250px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
 }
 
 .spell {
@@ -122,6 +143,32 @@ button {
 .spell-card:hover {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
   transform: scale(1.1);
+}
+
+.spell-card__container {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.spell-card__container p {
+    margin: 20px 0;
+    font-size: 25px;
+}
+
+.spell-card__container h1 {
+    font-size: 25px;
+    margin-top: 20px;
+}
+
+.api-btn {
+    padding: 10px;
+    border-radius: 5px;
+    border-color: rgba(101, 205, 27, 0.882);
+    background-color: green;
+    color: white;
+    font-size: 16px;
 }
 
 .spell-card__info--container {

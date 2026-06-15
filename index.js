@@ -80,11 +80,11 @@ allSpells()
 
 
 function spellHTML(spells) {
-    return `<div data-name="${spells.name}" data-num="${spells.level}" class="spell-card">
+    return `<div data-name="${spells.name}" data-num="${spells.level}" class="spell-card column">
               <div class="spell-card__container">
-                <h3>Spell: ${spells.name}</h3>
+                <h1>${spells.name}</h1>
                 <p id="${spells.level}"><b>Level: ${spells.level}</b></p>
-                <p><button class= "api-btn" id="${spells.index}">See Reverse for Description</button></p>
+                <button class= "api-btn" id="${spells.index}">See Reverse for Description</button>
               </div>
             </div>`
 }
