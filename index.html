@@ -30,7 +30,7 @@
             </div>
           </div>
         </div>
-        <select id="filter" onchange="filterSpells(event)">
+        <select id="filter" onchange="sortSpells()">
             <option value="" disabled selected>Sort</option>
             <option value="LOW_TO_HIGH">Level, Low to High</option>
             <option value="HIGH_TO_LOW">Level, High to Low</option>
@@ -40,7 +40,7 @@
     </div>
     <div class="container">
       <div class="row">
-        <div class="spell-list">
+        <div id= "spell-list" class="spell-list">
           <div class="spell">
             <div class="spell-card">
               <div id="spell-card__container" class="spell-card__container">

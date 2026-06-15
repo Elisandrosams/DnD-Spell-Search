@@ -80,10 +80,10 @@ allSpells()
 
 
 function spellHTML(spells) {
-    return `<div class="spell-card">
+    return `<div data-name="${spells.name}" data-num="${spells.level}" class="spell-card">
               <div class="spell-card__container">
                 <h3>Spell: ${spells.name}</h3>
-                <p><b>Level: ${spells.level}</b></p>
+                <p id="${spells.level}"><b>Level: ${spells.level}</b></p>
                 <p><button class= "api-btn" id="${spells.index}">See Reverse for Description</button></p>
               </div>
             </div>`
@@ -112,10 +112,24 @@ document.body.addEventListener('click', async (event) => {
   <p><b>Casting Time:</b> ${info.casting_time}</p>
   <p><b>Range: </b>${info.range}</p>
   <p><b>Description: </b><ul>${descList}</ul></p>
-`;
-    }
-    
+`;}
 });
+
+function sortSpells() {
+    const dropDown = document.getElementById("filter");
+    const container = document.getElementById("spell-list");
+    const divs = Array.from(container.querySelectorAll(".spell-card"));
+    if (dropDown.value === "LOW_TO_HIGH") {
+        divs.sort((a, b) => Number(a.dataset.num) - Number(b.dataset.num));
+    }
+    else if (dropDown.value === "HIGH_TO_LOW") {
+        divs.sort((a, b) => Number(b.dataset.num) - Number(a.dataset.num));
+    }
+    else if (dropDown.value === "ALPHABETICAL") {
+        divs.sort((a, b) => a.dataset.name.localeCompare(b.dataset.name));
+    }
+    divs.forEach(div => container.appendChild(div));
+}
 
 
 
