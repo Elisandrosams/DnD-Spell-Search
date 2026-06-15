@@ -85,7 +85,7 @@ function spellHTML(spells) {
               <div class="spell-card__container">
                 <h1>${spells.name}</h1>
                 <p id="${spells.level}"><b>Level: ${spells.level}</b></p>
-                <button class= "api-btn click" id="${spells.index}" onclick="toggleSpellInfo()" >See Reverse for Description</button>
+                <button class= "api-btn click" id="${spells.index}" onclick="toggleSpellInfo(), window.scrollTo({top: 0})" >See Reverse for Description</button>
               </div>
             </div>`
 }
