@@ -307,3 +307,23 @@ html {
     font-size: 24px;
     z-index: 3;      
 }
+
+/* footer */
+
+.footer__row {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    align-items: center;
+}
+
+.footer__logo {
+    filter: grayscale(100%) invert(100%);
+    width: 120px;
+    height: 100px;
+    margin-bottom: 20px;
+}
+
+.footer__copyright {
+    margin-top: 20px;
+}
