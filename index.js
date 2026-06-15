@@ -6,6 +6,7 @@ const minLevelInput = slider.querySelector(".min-level")
 const maxLevelInput = slider.querySelector(".max-level")
 const minInput = slider.querySelector(".min-input")
 const maxInput = slider.querySelector(".max-input")
+let isSpellInfoOpen = false;
 
 const updateProgress = () => {
     const minValue = parseInt(minInput.value)
@@ -84,7 +85,7 @@ function spellHTML(spells) {
               <div class="spell-card__container">
                 <h1>${spells.name}</h1>
                 <p id="${spells.level}"><b>Level: ${spells.level}</b></p>
-                <button class= "api-btn" id="${spells.index}">See Reverse for Description</button>
+                <button class= "api-btn click" id="${spells.index}" onclick="toggleSpellInfo()" >See Reverse for Description</button>
               </div>
             </div>`
 }
@@ -106,13 +107,15 @@ document.body.addEventListener('click', async (event) => {
         const info = await result.json();
         console.log(info)
         const descList = info.desc.map(description => `<li>${description}</li>`).join('')
-        document.querySelector(".spell-card__info--container").innerHTML = `
-  <h2>${info.name}</h2>
-  <p><b>Level: ${info.level}</b></p>
-  <p><b>Casting Time:</b> ${info.casting_time}</p>
-  <p><b>Range: </b>${info.range}</p>
-  <p><b>Description: </b><ul>${descList}</ul></p>
-`;}
+        document.querySelector(".spell__info--container").innerHTML = `
+            <div class="spell__info">
+            <i class="fa-solid fa-xmark spell__info--close click" onclick="toggleSpellInfo()"></i>
+                <h2><b>${info.name}</b></h2>
+                <p><b>Level: ${info.level}</b></p>
+                <p><b>Casting Time:</b> ${info.casting_time}</p>
+                <p><b>Range: </b>${info.range}</p>
+                <p><b>Description: </b><ul>${descList}</ul></p>
+            </div>`;}
 });
 
 function sortSpells() {
@@ -131,7 +134,14 @@ function sortSpells() {
     divs.forEach(div => container.appendChild(div));
 }
 
-
+function toggleSpellInfo() {
+    if (isSpellInfoOpen) {
+        isSpellInfoOpen = false;
+        return document.body.classList.remove("spell__info--open");
+    }
+    isSpellInfoOpen = true;
+    document.body.classList += " spell__info--open";
+}
 
        
     

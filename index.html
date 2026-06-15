@@ -3,18 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://kit.fontawesome.com/9169ad0fbb.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css" />
     <script src="index.js" defer></script>
     <title>DnD Spells</title>
   </head>
   <body>
     <div class="container">
-      <div class="row">
-        
+      <div class="row nav__row">
+        <div class="nav">
+          <h1><b>DnD Spells</b></h1>
+          <div class="nav__links">
+                    <a href="#" class="nav__link">Home</a>
+                    <a href="#about" class="nav__link">About</a>
+                    <a href="#spells" class="nav__link">Spells</a>
+          </div>
+        </div>
       </div>
     </div>
     <div class="container">
+      <div class="row">
+        <div id="about" class="about">
+          <h2>About</h2>
+          <p class="about__info">This website was created so that I could quickly look up spells and what they did while DMing for my young boys.<br>
+          Choose your spell level range with the sliders and then choose your desired organization layout.</p>
+          <p class="about__warning"><em>* uses DnD 2014 edition data, spell information may have changed with the 2024 edition.</em></p>
+        </div>
+      </div>
+    </div>
+    <div id="spells" class="container">
       <div class="row sorting">
+        <div class="sorting-title"><h2>What are you looking for?</h2></div>
         <div class="slider__container">
           <h3>Spell Level</h3>
           <div class="range-slider">
@@ -56,11 +75,10 @@
     <div class="container">
         <div class="row">
             <div class="spell">
-            <div class="spell-card">
-              <div class="spell-card__info--container">
-                <h3>Spell Name:</h3>
-                <p><b>Level:</b></p>
-                <p><b>Desc.:</b></p>
+              <div class="spell__info--container">
+                <div class="spell__info">
+                  <i class="fa-solid fa-xmark modal__close click" onclick="toggleModal()"></i>
+                </div>
               </div>
             </div>
           </div>
