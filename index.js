@@ -69,11 +69,12 @@ updateProgress()
 
 
 
-async function allSpells() {
+async function allSpells(filter) {
     const spells = await fetch(`https://www.dnd5eapi.co/api/2014/spells?level=${spellRange()}`)
     const spellsData = await spells.json();
     const {results, ...details} = spellsData;
     spellListEl.innerHTML = results.map((spells) => spellHTML(spells)).join("");
+    console.log(results)
 }
 allSpells()
 
@@ -81,7 +82,7 @@ allSpells()
 function spellHTML(spells) {
     return `<div class="spell-card">
               <div class="spell-card__container">
-                <h3>Spell: ${spells.index}</h3>
+                <h3>Spell: ${spells.name}</h3>
                 <p><b>Level: ${spells.level}</b></p>
                 <p><button class= "api-btn" id="${spells.index}">See Reverse for Description</button></p>
               </div>
@@ -104,12 +105,13 @@ document.body.addEventListener('click', async (event) => {
         const result = await fetch(`https://www.dnd5eapi.co/api/2014/spells/${buttonId}`)
         const info = await result.json();
         console.log(info)
+        const descList = info.desc.map(description => `<li>${description}</li>`).join('')
         document.querySelector(".spell-card__info--container").innerHTML = `
   <h2>${info.name}</h2>
   <p><b>Level: ${info.level}</b></p>
   <p><b>Casting Time:</b> ${info.casting_time}</p>
   <p><b>Range: </b>${info.range}</p>
-  <p><b>Description: </b>${info.desc[0]}</p>
+  <p><b>Description: </b><ul>${descList}</ul></p>
 `;
     }
     
