@@ -216,6 +216,18 @@ html {
     border: 3px solid green;
 }
 
+.search__container {
+    color: white;
+    margin-top: 30px;
+    font-size: 20px;
+}
+
+#searchInput {
+    font-size: 18px;
+    max-width: 450px;
+    padding: 5px;
+    border: 3px solid green;
+}
 /* spell list */
 
 .spell-list__row {

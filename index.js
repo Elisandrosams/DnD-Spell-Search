@@ -6,6 +6,7 @@ const minLevelInput = slider.querySelector(".min-level")
 const maxLevelInput = slider.querySelector(".max-level")
 const minInput = slider.querySelector(".min-input")
 const maxInput = slider.querySelector(".max-input")
+const searchInput = document.getElementById('searchInput')
 let isSpellInfoOpen = false;
 
 const updateProgress = () => {
@@ -56,6 +57,7 @@ minInput.addEventListener('input', () => {
     updateProgress()
     spellRange()
     allSpells()
+    
 })
 
 maxInput.addEventListener('input', () => {
@@ -65,20 +67,28 @@ maxInput.addEventListener('input', () => {
     updateProgress()
     spellRange()
     allSpells()
+    
 })
 updateProgress()
 
 
-
-async function allSpells(filter) {
+let resultsData = [];
+async function allSpells() {
     const spells = await fetch(`https://www.dnd5eapi.co/api/2014/spells?level=${spellRange()}`)
     const spellsData = await spells.json();
     const {results, ...details} = spellsData;
+    const resultsData = results;
     spellListEl.innerHTML = results.map((spells) => spellHTML(spells)).join("");
-    console.log(results)
 }
 allSpells()
 
+searchInput.addEventListener('input', (event) => {
+    const text = event.target.value.toLowerCase();
+    const filtered = resultsData.filter(item => { 
+        return item.name.toLowerCase().includes(text);   
+});
+spellHTML(filtered)
+});
 
 function spellHTML(spells) {
     return `<div data-name="${spells.name}" data-num="${spells.level}" class="spell-card column">
@@ -146,6 +156,25 @@ function toggleSpellInfo() {
     document.body.style.overflow = "hidden";
     
 }
+
+//function filterData(results, userInput) {
+//    const filterText = userInput.toLowerCase().trim();
+//    if (!filterText) return results;
+//    return results.filter(item => {
+//        const itemName = item.name.toLowerCase();
+//        if(filterText.length === 1) {
+//            return itemName.startsWith(filterText);
+//        }
+//        else {
+//            return itemName.includes(filterText);
+//        }
+//    });
+//}
+//function handleSearch(results) {
+//    const query = searchInput.value;
+//    const matches = filterData(results, query);
+//}
+
 
        
     
