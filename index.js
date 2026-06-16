@@ -6,7 +6,7 @@ const minLevelInput = slider.querySelector(".min-level")
 const maxLevelInput = slider.querySelector(".max-level")
 const minInput = slider.querySelector(".min-input")
 const maxInput = slider.querySelector(".max-input")
-const searchInput = document.getElementById('searchInput')
+const searchInput = document.getElementById('.searchInput')
 let isSpellInfoOpen = false;
 
 const updateProgress = () => {
@@ -77,18 +77,18 @@ async function allSpells() {
     const spells = await fetch(`https://www.dnd5eapi.co/api/2014/spells?level=${spellRange()}`)
     const spellsData = await spells.json();
     const {results, ...details} = spellsData;
-    const resultsData = results;
+    resultsData = results;
     spellListEl.innerHTML = results.map((spells) => spellHTML(spells)).join("");
 }
 allSpells()
 
-searchInput.addEventListener('input', (event) => {
+function searchSpells(event) {
     const text = event.target.value.toLowerCase();
-    const filtered = resultsData.filter(item => { 
-        return item.name.toLowerCase().includes(text);   
+    const filtered = resultsData.filter((spell) => { 
+        return spell.name.toLowerCase().startsWith(text);   
 });
-spellHTML(filtered)
-});
+spellListEl.innerHTML = filtered.map((spells) => spellHTML(spells)).join("");
+}
 
 function spellHTML(spells) {
     return `<div data-name="${spells.name}" data-num="${spells.level}" class="spell-card column">
@@ -157,23 +157,6 @@ function toggleSpellInfo() {
     
 }
 
-//function filterData(results, userInput) {
-//    const filterText = userInput.toLowerCase().trim();
-//    if (!filterText) return results;
-//    return results.filter(item => {
-//        const itemName = item.name.toLowerCase();
-//        if(filterText.length === 1) {
-//            return itemName.startsWith(filterText);
-//        }
-//        else {
-//            return itemName.includes(filterText);
-//        }
-//    });
-//}
-//function handleSearch(results) {
-//    const query = searchInput.value;
-//    const matches = filterData(results, query);
-//}
 
 
        

@@ -22,7 +22,9 @@
         <div id="about" class="about">
           <h2>About</h2>
           <p class="about__info">This website was created so that I could quickly look up spells and what they did while DMing for my young boys.<br>
-          Choose your spell level range with the sliders and then choose your desired organization layout.</p>
+          * Choose your spell level range with the sliders.<br>
+          * Type the name of your spell or the first letter to bring up all spells starting with that letter and hit enter.
+        <br> * Choose your desired organization layout. </p>
           <p class="about__warning"><em>* uses DnD 2014 edition data, spell information may have changed with the 2024 edition.</em></p>
         </div>
       </div>
@@ -45,16 +47,16 @@
             </div>
           </div>
         </div>
+        <div class="search__container">
+          <label for="searchInput">Search:</label>
+          <input type="text" id="searchInput" onchange="searchSpells(event)" placeholder="Search by letter or word">
+        </div>
         <select id="filter" onchange="sortSpells()">
             <option value="" disabled selected>Sort</option>
             <option value="LOW_TO_HIGH">Level, Low to High</option>
             <option value="HIGH_TO_LOW">Level, High to Low</option>
             <option value="ALPHABETICAL">Alphabetical</option>
         </select>
-        <div class="search__container">
-          <label for="searchInput">Search:</label>
-          <input type="text" id="searchInput" placeholder="Search by letter or word">
-        </div>
       </div>
     </div>
     <div class="container">
