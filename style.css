@@ -215,10 +215,6 @@ html {
   gap: 15px;
 }
 
-.spell {
-  width: 50%;
-}
-
 .spell-card {
   background-color: #fff;
   box-shadow: 0 4px 8px 0 rgba(101, 205, 27, 0.882);
@@ -266,11 +262,20 @@ html {
 }
 
 /* spell card pop-up */
-
+.spell {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.9);
+    z-index: 4;
+    visibility: hidden;
+}
 .spell__info--container {
-    position: absolute;
+    position: fixed;
     top: 50%;
-    left: 50%;
+    left: 50%; 
     transform: translate(-50%, -50%);
     width: 90%;
     max-width: 1100px;
@@ -281,21 +286,20 @@ html {
     z-index: -1;
     background-color: white;
     padding: 40px;
-    transition: visibility 1s, z-index 1s, ease;
 }
 
 .spell__info {
    display: flex;
    flex-direction: column;
+   z-index: 1;
 }
 
 .spell__info h2 {
     font-size: 30px;
 }
 
-.spell__info--open .spell__info--container{
+.spell__info--open .spell__info--container, .spell__info--open .spell {
     z-index: 10;
-    box-shadow: 0 20px 80px 0 rgba(0, 0, 0, 0.55);
     visibility: visible;
 }
 

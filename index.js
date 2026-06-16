@@ -85,7 +85,7 @@ function spellHTML(spells) {
               <div class="spell-card__container">
                 <h1>${spells.name}</h1>
                 <p id="${spells.level}"><b>Level: ${spells.level}</b></p>
-                <button class= "api-btn click" id="${spells.index}" onclick="toggleSpellInfo(), window.scrollTo({top: 0})" >See Reverse for Description</button>
+                <button class= "api-btn click" id="${spells.index}" onclick="toggleSpellInfo()" >See Reverse for Description</button>
               </div>
             </div>`
 }
@@ -105,7 +105,6 @@ document.body.addEventListener('click', async (event) => {
         const buttonId = button.id;
         const result = await fetch(`https://www.dnd5eapi.co/api/2014/spells/${buttonId}`)
         const info = await result.json();
-        console.log(info)
         const descList = info.desc.map(description => `<li>${description}</li>`).join('')
         document.querySelector(".spell__info--container").innerHTML = `
             <div class="spell__info">
@@ -116,6 +115,7 @@ document.body.addEventListener('click', async (event) => {
                 <p><b>Range: </b>${info.range}</p>
                 <p><b>Description: </b><ul>${descList}</ul></p>
             </div>`;}
+        
 });
 
 function sortSpells() {
@@ -137,10 +137,14 @@ function sortSpells() {
 function toggleSpellInfo() {
     if (isSpellInfoOpen) {
         isSpellInfoOpen = false;
+        document.body.style.overflow = "auto";
         return document.body.classList.remove("spell__info--open");
+        
     }
     isSpellInfoOpen = true;
     document.body.classList += " spell__info--open";
+    document.body.style.overflow = "hidden";
+    
 }
 
        
