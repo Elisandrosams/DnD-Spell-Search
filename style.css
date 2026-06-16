@@ -191,14 +191,15 @@ html {
 .sorting {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
 }
 
 #filter {
-    margin-top: 20px;
-    width: 100%;
+    margin-top: 40px;
+    font-size: 18px;
     max-width: 450px;
+    padding: 5px;
+    border: 3px solid green;
 }
 
 /* spell list */
