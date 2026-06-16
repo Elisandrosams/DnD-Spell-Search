@@ -304,6 +304,8 @@ html {
     z-index: -1;
     background-color: white;
     padding: 40px;
+    max-height: 85vh;
+    overflow-y: auto;
 }
 
 .spell__info {
@@ -387,5 +389,8 @@ html {
 
     .nav__link {
         visibility: hidden;
+    }
+    .nav__links {
+        display: none;
     }
 }
