@@ -310,7 +310,8 @@ html {
     right: 30px;
     color: black;
     font-size: 24px;
-    z-index: 3;      
+    z-index: 3;
+    transition: 0ms;      
 }
 
 /* footer */
