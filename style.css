@@ -383,4 +383,8 @@ html {
     .sorting-title h2 {
         font-size: 40px;
     }
+
+    .nav__link {
+        visibility: hidden;
+    }
 }
