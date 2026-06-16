@@ -8,6 +8,7 @@
 
 body {
     background-color: rgb(20, 19, 19);
+    overflow-x: hidden;
 }
 button {
     cursor: pointer;
