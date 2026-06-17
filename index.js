@@ -91,7 +91,7 @@ async function allSpells() {
   resultsData = spellsData.results;
   spellListEl.innerHTML = resultsData.length
             ? resultsData.map(spell => spellHTML(spell)).join("")
-            : `<li style="color: gray;">No spells found.</li>`;
+            : `<li style="color: white;">No spells found.</li>`;
 
   sortSpells();
     } catch (error) {
@@ -105,26 +105,17 @@ allSpells()
 function searchSpells(event) {
     try {
         const text = event.target.value.trim().toLowerCase();
-
-        // Filter spells by search text
         let filtered = resultsData.filter(spell => 
             spell.name.toLowerCase().includes(text)
         );
-
-        // If no matches, show a message
         if (filtered.length === 0) {
             spellListEl.innerHTML = `<li style="color: white;">No spells found</li>`;
             return; // Stop here, don't sort
         }
-
-        // Render filtered spells
         spellListEl.innerHTML = filtered
             .map(spell => spellHTML(spell))
             .join("");
-
-        // Sort after rendering
         sortSpells();
-
     } catch (error) {
         console.error("Error in searchSpells:", error);
         spellListEl.innerHTML = `<li>Something went wrong. Please try again.</li>`;
