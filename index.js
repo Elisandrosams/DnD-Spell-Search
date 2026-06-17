@@ -81,13 +81,23 @@ function levelQuery() {
 }
 
 async function allSpells() {
+  try {  spellListEl.innerHTML = `<li style="color: gray;">Loading spells...</li>`;
   const spells = await fetch(`https://www.dnd5eapi.co/api/2014/spells?${levelQuery()}`);
+  if (!spells.ok) {
+            throw new Error(`HTTP error! Status: ${spells.status}`);
+        }
   const spellsData = await spells.json();
 
   resultsData = spellsData.results;
-  spellListEl.innerHTML = resultsData.map((spell) => spellHTML(spell)).join("");
+  spellListEl.innerHTML = resultsData.length
+            ? resultsData.map(spell => spellHTML(spell)).join("")
+            : `<li style="color: gray;">No spells found.</li>`;
 
   sortSpells();
+    } catch (error) {
+        console.error("error fetching spells:", error);
+        spellListEl.innerHTML = `<li style="color: red;">Failed to load spells. Please try again.</li>`;
+    }
 }
 
 allSpells()
