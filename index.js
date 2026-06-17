@@ -88,6 +88,7 @@ function searchSpells(event) {
         return spell.name.toLowerCase().startsWith(text);   
 });
 spellListEl.innerHTML = filtered.map((spells) => spellHTML(spells)).join("");
+sortSpells();
 }
 
 function spellHTML(spells) {
@@ -127,22 +128,35 @@ document.body.addEventListener('click', async (event) => {
             </div>`;}
         
 });
-
-function sortSpells() {
+let lastSortOption = "LOW_TO_HIGH";
+function sortSpells(option) {
     const dropDown = document.getElementById("filter");
     const container = document.getElementById("spell-list");
     const divs = Array.from(container.querySelectorAll(".spell-card"));
-    if (dropDown.value === "LOW_TO_HIGH") {
+    const sortOption = option || lastSortOption;
+    dropDown.value = sortOption;
+    lastSortOption = sortOption;
+    localStorage.setItem("spellSortOption", sortOption);
+
+    if (sortOption === "LOW_TO_HIGH") {
         divs.sort((a, b) => Number(a.dataset.num) - Number(b.dataset.num));
     }
-    else if (dropDown.value === "HIGH_TO_LOW") {
+    else if (sortOption === "HIGH_TO_LOW") {
         divs.sort((a, b) => Number(b.dataset.num) - Number(a.dataset.num));
     }
-    else if (dropDown.value === "ALPHABETICAL") {
+    else if (sortOption === "ALPHABETICAL") {
         divs.sort((a, b) => a.dataset.name.localeCompare(b.dataset.name));
     }
+    
     divs.forEach(div => container.appendChild(div));
 }
+document.getElementById("filter").addEventListener("change", function () {
+    sortSpells(this.value);
+});
+document.addEventListener("DOMContentLoaded", () => {
+    sortSpells();
+});
+
 
 function toggleSpellInfo() {
     if (isSpellInfoOpen) {
