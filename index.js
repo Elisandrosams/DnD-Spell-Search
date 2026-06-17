@@ -96,7 +96,7 @@ async function allSpells() {
   sortSpells();
     } catch (error) {
         console.error("error fetching spells:", error);
-        spellListEl.innerHTML = `<li style="color: red;">Failed to load spells. Please try again.</li>`;
+        
     }
 }
 
@@ -106,7 +106,7 @@ allSpells()
 function searchSpells(event) {
     const text = event.target.value.toLowerCase();
     let filtered = resultsData.filter((spell) => { 
-        return spell.name.toLowerCase().startsWith(text);   
+        return spell.name.toLowerCase().includes(text);   
 });
 spellListEl.innerHTML = filtered.map((spells) => spellHTML(spells)).join("");
 sortSpells();
