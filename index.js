@@ -110,7 +110,7 @@ function searchSpells(event) {
         );
         if (filtered.length === 0) {
             spellListEl.innerHTML = `<li style="color: white;">No spells found</li>`;
-            return; // Stop here, don't sort
+            return; 
         }
         spellListEl.innerHTML = filtered
             .map(spell => spellHTML(spell))
@@ -121,16 +121,6 @@ function searchSpells(event) {
         spellListEl.innerHTML = `<li>Something went wrong. Please try again.</li>`;
     }
 }
-
-
-//function searchSpells(event) {
-//    const text = event.target.value.toLowerCase();
-//    let filtered = resultsData.filter((spell) => { 
-//        return spell.name.toLowerCase().includes(text);   
-//});
-//spellListEl.innerHTML = filtered.map((spells) => spellHTML(spells)).join("");
-//sortSpells();
-//}
 
 function spellHTML(spells) {
     return `<div data-name="${spells.name}" data-num="${spells.level}" class="spell-card column">
