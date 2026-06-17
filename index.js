@@ -6,7 +6,7 @@ const minLevelInput = slider.querySelector(".min-level")
 const maxLevelInput = slider.querySelector(".max-level")
 const minInput = slider.querySelector(".min-input")
 const maxInput = slider.querySelector(".max-input")
-const searchInput = document.getElementById('.searchInput')
+const searchInput = document.getElementById('searchInput')
 let isSpellInfoOpen = false;
 
 const updateProgress = () => {
@@ -47,44 +47,55 @@ const updateRange = (event) => {
 }
 
 
-minLevelInput.addEventListener('input', updateRange)
-maxLevelInput.addEventListener('input', updateRange)
+minLevelInput.addEventListener('input', (event) => {
+  updateRange(event);
+  allSpells();
+});
+
+maxLevelInput.addEventListener('input', (event) => {
+  updateRange(event);
+  allSpells();
+});
 
 minInput.addEventListener('input', () => {
     if(parseInt(minInput.value) >= parseInt(maxInput.value)) {
         maxInput.value = minInput.value;
     }
-    updateProgress()
-    spellRange()
-    allSpells()
-    
+    updateProgress();
+    spellRange();
+    allSpells();
 })
 
 maxInput.addEventListener('input', () => {
     if(parseInt(maxInput.value) <= parseInt(minInput.value)) {
         minInput.value = maxInput.value;
     }
-    updateProgress()
-    spellRange()
-    allSpells()
-    
+    updateProgress();
+    spellRange();
+    allSpells();
 })
 updateProgress()
 
-
-let resultsData = [];
-async function allSpells() {
-    const spells = await fetch(`https://www.dnd5eapi.co/api/2014/spells?level=${spellRange()}`)
-    const spellsData = await spells.json();
-    const {results, ...details} = spellsData;
-    resultsData = results;
-    spellListEl.innerHTML = results.map((spells) => spellHTML(spells)).join("");
+function levelQuery() {
+  return spellRange().map(level => `level=${level}`).join("&");
 }
+
+async function allSpells() {
+  const spells = await fetch(`https://www.dnd5eapi.co/api/2014/spells?${levelQuery()}`);
+  const spellsData = await spells.json();
+
+  resultsData = spellsData.results;
+  spellListEl.innerHTML = resultsData.map((spell) => spellHTML(spell)).join("");
+
+  sortSpells();
+}
+
 allSpells()
+
 
 function searchSpells(event) {
     const text = event.target.value.toLowerCase();
-    const filtered = resultsData.filter((spell) => { 
+    let filtered = resultsData.filter((spell) => { 
         return spell.name.toLowerCase().startsWith(text);   
 });
 spellListEl.innerHTML = filtered.map((spells) => spellHTML(spells)).join("");
@@ -128,7 +139,7 @@ document.body.addEventListener('click', async (event) => {
             </div>`;}
         
 });
-let lastSortOption = "LOW_TO_HIGH";
+let lastSortOption = "Sort";
 function sortSpells(option) {
     const dropDown = document.getElementById("filter");
     const container = document.getElementById("spell-list");
